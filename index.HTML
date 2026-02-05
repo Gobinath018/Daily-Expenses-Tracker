@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Expense Tracker - Advanced</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN for pie chart visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- SheetJS for Excel generation -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Glassmorphism Background Elements -->
+    <div class="bg-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>💰 Daily Expense Tracker</h1>
+            <p>Track your income and expenses with advanced analytics</p>
+        </header>
+
+        <!-- Filter and Export Controls -->
+        <div class="controls-section">
+            <div class="card controls-card">
+                <div class="controls-group">
+                    <!-- Date Filter -->
+                    <div class="control-item">
+                        <label for="dateFilter">📅 Filter by Date</label>
+                        <div class="date-filter-group">
+                            <input type="date" id="dateFilter" class="date-input">
+                            <button id="clearFilter" class="btn-clear">Clear Filter</button>
+                        </div>
+                    </div>
+
+                    <!-- Export Buttons -->
+                    <div class="control-item export-buttons">
+                        <button id="downloadPDF" class="btn-export btn-pdf">
+                            📄 Download PDF
+                        </button>
+                        <button id="downloadExcel" class="btn-export btn-excel">
+                            📊 Download Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balance Summary Cards -->
+        <div class="balance-summary">
+            <div class="balance-card total">
+                <div class="card-icon">💵</div>
+                <h3>Total Balance</h3>
+                <p class="amount" id="totalBalance">₹0.00</p>
+            </div>
+            <div class="balance-card income">
+                <div class="card-icon">📈</div>
+                <h3>Total Income</h3>
+                <p class="amount" id="totalIncome">₹0.00</p>
+            </div>
+            <div class="balance-card expense">
+                <div class="card-icon">📉</div>
+                <h3>Total Expense</h3>
+                <p class="amount" id="totalExpense">₹0.00</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Transaction Form Card -->
+            <div class="card form-card">
+                <h2>✨ Add Transaction</h2>
+                <form id="transactionForm">
+                    <!-- Description Input -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" placeholder="e.g., Salary, Groceries, Rent" required>
+                    </div>
+
+                    <!-- Amount Input -->
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" placeholder="0.00" step="0.01" min="0.01" required>
+                    </div>
+
+                    <!-- Category Input -->
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Food">🍔 Food</option>
+                            <option value="Transport">🚗 Transport</option>
+                            <option value="Shopping">🛍️ Shopping</option>
+                            <option value="Entertainment">🎬 Entertainment</option>
+                            <option value="Bills">💡 Bills</option>
+                            <option value="Health">🏥 Health</option>
+                            <option value="Education">📚 Education</option>
+                            <option value="Salary">💼 Salary</option>
+                            <option value="Investment">💰 Investment</option>
+                            <option value="Other">📦 Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Transaction Type Selection -->
+                    <div class="form-group">
+                        <label>Transaction Type</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="type" value="income" checked>
+                                <span class="radio-custom income-radio">💚 Income</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="type" value="expense">
+                                <span class="radio-custom expense-radio">❤️ Expense</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">
+                        <span>➕ Add Transaction</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="card chart-card">
+                <h2>📊 Spending Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+                <p class="chart-info" id="chartInfo">No expenses to display</p>
+            </div>
+        </div>
+
+        <!-- Transaction History Card -->
+        <div class="card transaction-card">
+            <div class="transaction-header">
+                <h2>📋 Transaction History</h2>
+                <span class="transaction-count" id="transactionCount">0 transactions</span>
+            </div>
+            <div id="transactionList" class="transaction-list">
+                <p class="no-transactions">No transactions yet. Add your first transaction above!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+</body>
+
+</html>
